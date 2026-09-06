@@ -271,7 +271,7 @@ Types: `select`, `url-test` (alias: `smart`), `fallback`, `load-balance`, `subne
 |-----------|-------|---------|------|
 | `policy-path` | URL | - | Remote proxy list (parsed as `[Proxy]` lines); members merged into the group. |
 | `policy-regex-filter` | Regex | `.*` | Filters members from `policy-path`/`include-all-proxies`/`include-other-group`. |
-| `update-interval` | Seconds | `86400` | `policy-path` refresh interval. |
+| `update-interval` | Seconds | `86400` | `policy-path` background refresh interval. Min effective 900 (15 min); updates apply on next VPN start. |
 | `hidden` | `true`/`false` | `false` | Hide from UI. |
 | `no-alert` | `true`/`false` | `false` | |
 | `include-all-proxies` | `true`/`false` | `false` | Include all `[Proxy]` entries (regex-filtered). |
@@ -314,7 +314,7 @@ Line format: `TYPE,value,policy[,attributes...]`. Evaluated **top-down, first ma
 | `DOMAIN-SUFFIX` | `DOMAIN-SUFFIX,example.com,Proxy` | Matches the domain and all subdomains. |
 | `DOMAIN-KEYWORD` | `DOMAIN-KEYWORD,example,Proxy` | Substring match. |
 | `DOMAIN-WILDCARD` | `DOMAIN-WILDCARD,*.example.com,Proxy` | `*`/`?` wildcards. |
-| `DOMAIN-SET` | `DOMAIN-SET,https://example.com/list.txt,Proxy` | Remote URL **only**. File: one domain per line; leading `.` = suffix match, otherwise exact. |
+| `DOMAIN-SET` | `DOMAIN-SET,https://example.com/list.txt,Proxy` | Remote URL **only**. File: one domain per line; leading `.` = suffix match, otherwise exact. Optional 4th field `update-interval=<seconds>` for background refresh (min effective 900; applies on next VPN start). |
 | `IP-CIDR` / `IP-CIDR6` | `IP-CIDR,192.0.2.0/24,DIRECT,no-resolve` | CIDR. |
 | `GEOIP` | `GEOIP,CN,DIRECT,no-resolve` | Two-letter country code. |
 | `PROCESS-NAME` | `PROCESS-NAME,com.example.app,Proxy` | Android package name; wildcards supported. |
@@ -324,7 +324,7 @@ Line format: `TYPE,value,policy[,attributes...]`. Evaluated **top-down, first ma
 | `SRC-IP` | `SRC-IP,192.0.2.10,DIRECT` | Exact source IP. |
 | `IN-PORT` | `IN-PORT,6152,DIRECT` | 1-65535. |
 | `PROTOCOL` | `PROTOCOL,QUIC,REJECT` | `HTTP` (TCP:80), `HTTPS` (TCP:443), `TCP`, `UDP`, `QUIC` (UDP:443). |
-| `RULE-SET` | `RULE-SET,https://example.com/rules.conf,Proxy` | Remote URL **only**. `RULE-SET,SYSTEM`/`RULE-SET,LAN` NOT supported. File lines are rules **without** the policy column (policy inherited). Nested `RULE-SET` forbidden. |
+| `RULE-SET` | `RULE-SET,https://example.com/rules.conf,Proxy` | Remote URL **only**. `RULE-SET,SYSTEM`/`RULE-SET,LAN` NOT supported. File lines are rules **without** the policy column (policy inherited). Nested `RULE-SET` forbidden. Optional 4th field `update-interval=<seconds>` for background refresh (min effective 900; applies on next VPN start). |
 | `AND` / `OR` / `NOT` | `AND,((RULE1),(RULE2)),Proxy` | AND/OR take ≥2 sub-rules, NOT exactly 1. Sub-rules have no policy. Max nesting depth 16. No `RULE-SET`/`DOMAIN-SET` inside. Any invalid sub-rule drops the whole rule. |
 | `FINAL` | `FINAL,Proxy` | Catch-all. MUST be the last rule. |
 

@@ -50,6 +50,7 @@ ProxySOCKS5 = socks5, 1.2.3.4, 443, username, password, udp-relay=false
 | proxies             | -              | 是      | 在 `[Proxy]` 部分中定义的代理名称列表，以逗号分隔。                                                                                                                                                                             |
 | policy-path         | -              | 否     | 指向代理列表的 URL。内容格式如下所示：<br/><br/><code>ProxyHTTP1 = http, 1.2.3.4, 443, username, password<br/>ProxyHTTP2 = http, 1.2.3.4, 443, username, password</code>                               |
 | policy-regex-filter | -              | 否     | 当定义了 policy-path/include-all-proxies/include-other-group 时适用。<br/>应用于代理名称的正则表达式；仅包含匹配该表达式的代理。注意：这是一个全匹配正则表达式。 |
+| update-interval     | 秒             | 否     | policy-path 内容的后台刷新间隔，例如 <code>update-interval=86400</code>。默认值：86400。最小有效间隔：900（15 分钟）。更新内容在下次启动 VPN 时生效；运行中的 VPN 不会中断。 |
 | hidden              | true<br/>false | 否     | 是否在用户界面中显示此策略组。即使设置为 false，该组仍然生效。                                                                                                                                    |
 | include-all-proxies | true<br/>false | 否     | 包含配置文件中定义的所有代理。可以与 `policy-regex-filter` 配合使用来过滤特定代理。                                                                                                                              |
 | include-other-group | -              | 否     | 包含由名称指定的其它策略组中的代理。可以与 `policy-regex-filter` 配合使用。多个组名可以用逗号分隔。                                                                    |

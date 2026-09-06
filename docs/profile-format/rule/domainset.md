@@ -30,15 +30,16 @@ Note that `.google.com` will match `www.google.com` as well as `google.com`.
 ## Format
 
 ```ini
-DOMAIN-SET, {domain set url}, {target}
+DOMAIN-SET, {domain set url}, {target}, update-interval = {update-interval}
 ```
 
 ## Parameters
 
-| Name           | Value | Mandatory | Note                                                   |
-|----------------|-------|-----------|--------------------------------------------------------|
-| domain set url | -     | true      |                                                        |
-| target         | -     | true      | The specified proxy or proxy group must exist in the profile. |
+| Name           | Value   | Mandatory | Note                                                                                                                                                                                                                          |
+|----------------|---------|-----------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| domain set url | -       | true      |                                                                                                                                                                                                                               |
+| target         | -       | true      | The specified proxy or proxy group must exist in the profile.                                                                                                                                                                 |
+| update-interval | seconds | false     | Background refresh interval of the remote content, e.g. `update-interval=86400`. Minimum effective interval: 900 (15 minutes). Updated content applies the next time the VPN starts; a running VPN is not interrupted. When omitted, the content is only refreshed lazily when it is older than 24 hours. |
 
 ## Comparison with Rule Set
 

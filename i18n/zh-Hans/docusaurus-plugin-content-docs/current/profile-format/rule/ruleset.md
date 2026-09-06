@@ -38,7 +38,7 @@ GEOIP,US
 ## 格式
 
 ```ini
-RULE-SET, {rule set url}, {target}
+RULE-SET, {rule set url}, {target}, update-interval = {update-interval}
 ```
 
 ## 参数
@@ -47,3 +47,4 @@ RULE-SET, {rule set url}, {target}
 |--------------|-------|-----------|--------------------------------------------------------|
 | rule set url | -     | 是      |                                                        |
 | target       | -     | 是      | 指定的代理或策略组必须存在于配置文件中。 |
+| update-interval | 秒 | 否      | 远程内容的后台刷新间隔，例如 `update-interval=86400`。最小有效间隔：900（15 分钟）。更新内容在下次启动 VPN 时生效；运行中的 VPN 不会中断。未设置时，仅在内容超过 24 小时后才会被懒惰刷新。 |

@@ -26,7 +26,7 @@ self-ip = 10.0.2.2
 self-ip-v6 = fd00:abcd:1234::2
 dns-server = 8.8.8.8
 mtu = 1280
-peer = (public-key = fWO8XS9/nwUQcqnkfBpKeqIqbzclQ6EKP20Pgvzwclg=, allowed-ips = "0.0.0.0/0, ::/0", endpoint = 192.168.20.6:51820)
+peer = (public-key = fWO8XS9/nwUQcqnkfBpKeqIqbzclQ6EKP20Pgvzwclg=, preshared-key = HoHPqMy8XFF8tNr9P4yTrJcf8ed+u9HZ+V9xtjtGxjg=, allowed-ips = "0.0.0.0/0, ::/0", endpoint = 192.168.20.6:51820)
 ```
 
 ## Format
@@ -41,7 +41,7 @@ self-ip = {self ip}
 self-ip-v6 = {self ipv6}
 dns-server = {dns server ip}
 mtu = {mtu size}
-peer = (public-key = {public key}, allowed-ips = "{allowed ip routes}", endpoint = {endpoint address}, keepalive = {keepalive seconds})
+peer = (public-key = {public key}, preshared-key = {preshared key}, allowed-ips = "{allowed ip routes}", endpoint = {endpoint address}, keepalive = {keepalive seconds})
 ```
 
 ## Parameters
@@ -56,6 +56,7 @@ peer = (public-key = {public key}, allowed-ips = "{allowed ip routes}", endpoint
 | dns server ip     | IPv4 or IPv6 format       | true      | Used to resolve domain destinations through the tunnel on the remote server. Supports multiple values separated by commas. |
 | mtu size          | integer greater than zero | true      |                                           |
 | public key        | base64 encoded format     | true      |                                           |
+| preshared key     | base64 encoded format     | false     | An additional 32-byte symmetric key mixed into the handshake. Must exactly match the peer configuration. |
 | allowed ip routes | IPv4 or IPv6 route format | true      | Use quotes when specifying multiple routes, e.g., `"0.0.0.0/0, ::/0"`. |
 | endpoint address  | IP:PORT format            | true      | Supports IPv4 and IPv6 addresses. IPv6 must use the bracketed `[addr]:port` form, e.g. `[2001:db8::1]:51820`. |
 | keepalive seconds | integer greater than zero | false     | 0 means disable keepalive.                 |
